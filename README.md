@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# React Redux app
 
 This is react redux app with redux toolkit.
 
