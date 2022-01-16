@@ -3,7 +3,10 @@ import Warning from "../warning/Warning";
 import "./update.css";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { update, remove } from "../../redux/userSlice";
+// prev example actions
+// import { update, remove } from "../../redux/userSlice";
+import { updateStart, updateSuccess, updateError } from "../../redux/userSlice";
+import { updateUser } from "../../redux/apiCalls";
 
 export default function Update() {
   const [userData, setUserData] = useState({
@@ -12,25 +15,34 @@ export default function Update() {
   });
 
 
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
 
-  const onUpdate = () => {
-    dispatch(update(userData));
+  // const onUpdate = () => {
+  //   dispatch(update(userData));
+  // }
+
+  const handleUpdate = () => {
+    dispatch(updateUser(userData));
+    // dispatch(updateStart());
+    // setTimeout(() => {
+    //   dispatch(updateSuccess(userData));
+    // }, 2000);
   }
 
-  const removeAccount = () => {
-    console.log("remove");
-    dispatch(remove())
-  }
+  // const removeAccount = () => {
+  //   console.log("remove");
+  //   dispatch(remove())
+  // }
 
   return (
     <div className="update">
       <div className="updateWrapper">
         <h3 className="updateTitle">Update Your Account</h3>
         <Warning />
-        <button className="delete" onClick={removeAccount}>Delete Account</button>
+        {/* <button className="delete" onClick={removeAccount}>Delete Account</button> */}
+        <button className="delete" >Delete Account</button>
         <div className="updateContainer">
           <form>
             <div className="formItem">
@@ -66,10 +78,16 @@ export default function Update() {
               <label>Password</label>
               <input className="formInput" type="password" />
             </div>
-            <button
+            {/* <button
               type="button"
               className="updateButton"
               onClick={onUpdate}
+            > Update
+            </button>*/}
+            <button
+              type="button"
+              className="updateButton"
+              onClick={handleUpdate}
             >
               Update
             </button>
