@@ -87,3 +87,20 @@ form {
   font-size: 14px;
   margin-left: 20px;
 }
+
+.updateButton.disabled {
+  cursor: not-allowed;
+  background-color: rgb(136, 168, 168);
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.success {
+  color: green;
+  font-size: 14px;
+  margin-left: 20px;
+}

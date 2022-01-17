@@ -5,7 +5,8 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // prev example actions
 // import { update, remove } from "../../redux/userSlice";
-import { updateStart, updateSuccess, updateError } from "../../redux/userSlice";
+// import { updateStart, updateSuccess, updateError } from "../../redux/userSlice";
+import { updateUserWithThunk } from "../../redux/userSlice";
 import { updateUser } from "../../redux/apiCalls";
 
 export default function Update() {
@@ -15,7 +16,7 @@ export default function Update() {
   });
 
 
-  const user = useSelector((state) => state.user.user);
+  const { user, pending, error } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -25,10 +26,10 @@ export default function Update() {
 
   const handleUpdate = () => {
     dispatch(updateUser(userData));
-    // dispatch(updateStart());
-    // setTimeout(() => {
-    //   dispatch(updateSuccess(userData));
-    // }, 2000);
+  }
+
+  const handleUpdateThunk = () => {
+    dispatch(updateUserWithThunk(userData));
   }
 
   // const removeAccount = () => {
@@ -87,10 +88,14 @@ export default function Update() {
             <button
               type="button"
               className="updateButton"
-              onClick={handleUpdate}
+              disabled={pending}
+              // onClick={handleUpdate}
+              onClick={handleUpdateThunk}
             >
               Update
             </button>
+            {error && <span className="error">Something went wrong</span>}
+            {pending === false && <span className="success">Successfully updated account</span>}
           </form>
         </div>
       </div>

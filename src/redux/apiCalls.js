@@ -1,17 +1,12 @@
-import { updateStart, updateSuccess, updateError } from "../../redux/userSlice";
+import { updateStart, updateSuccess, updateError } from "./userSlice";
+import axios from "axios";
 
 export const updateUser = (user) => async (dispatch) => {
     dispatch(updateStart());
     try {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${user.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        });
-        const data = await response.json();
-        dispatch(updateSuccess(data));
+        const res = await axios.post(`http://localhost:3333/api/users/:id/update`, user)
+        dispatch(updateSuccess(res.data));
+        console.log(res.data);
     } catch (error) {
         dispatch(updateError());
     }
